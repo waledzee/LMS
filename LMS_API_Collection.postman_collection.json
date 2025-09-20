@@ -1,0 +1,547 @@
+{
+	"info": {
+		"_postman_id": "lms-api-collection",
+		"name": "Library Management System API",
+		"description": "Complete API collection for Library Management System with authentication and role-based access control",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+            
+			"key": "jwt_token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('jwt_token', response.token);",
+									"    console.log('JWT Token saved:', response.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login - Librarian",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('jwt_token', response.token);",
+									"    console.log('JWT Token saved:', response.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"librarian\",\n    \"password\": \"librarian123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login - Staff",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('jwt_token', response.token);",
+									"    console.log('JWT Token saved:', response.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"staff\",\n    \"password\": \"staff123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Register New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newuser\",\n    \"email\": \"newuser@lms.com\",\n    \"password\": \"password123\",\n    \"roleId\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "register"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": ["{{base_url}}"],
+							"path": ["api", "books"]
+						}
+					}
+				},
+				{
+					"name": "Get Book by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "books", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create New Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The Great Gatsby\",\n    \"isbn\": \"978-0743273565\",\n    \"edition\": \"1st\",\n    \"publicationYear\": 1925,\n    \"summary\": \"A classic American novel about the Jazz Age\",\n    \"coverImage\": \"great_gatsby.jpg\",\n    \"publisherId\": 1,\n    \"languageId\": 1,\n    \"authorIds\": [1],\n    \"categoryIds\": [1, 4]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": ["{{base_url}}"],
+							"path": ["api", "books"]
+						}
+					}
+				},
+				{
+					"name": "Update Book",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The Great Gatsby - Updated\",\n    \"isbn\": \"978-0743273565\",\n    \"edition\": \"2nd\",\n    \"publicationYear\": 1925,\n    \"summary\": \"A classic American novel about the Jazz Age - Updated Edition\",\n    \"coverImage\": \"great_gatsby_v2.jpg\",\n    \"publisherId\": 1,\n    \"languageId\": 1,\n    \"authorIds\": [1],\n    \"categoryIds\": [1, 4]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "books", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "books", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Members",
+			"item": [
+				{
+					"name": "Get All Members",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/members",
+							"host": ["{{base_url}}"],
+							"path": ["api", "members"]
+						}
+					}
+				},
+				{
+					"name": "Get Member by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/members/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "members", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create New Member",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Alice\",\n    \"lastName\": \"Johnson\",\n    \"email\": \"alice.johnson@email.com\",\n    \"phone\": \"+1 555 123 4567\",\n    \"address\": \"789 Pine St, Anytown, USA\",\n    \"membershipDate\": \"2024-01-15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/members",
+							"host": ["{{base_url}}"],
+							"path": ["api", "members"]
+						}
+					}
+				},
+				{
+					"name": "Update Member",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Alice\",\n    \"lastName\": \"Johnson-Smith\",\n    \"email\": \"alice.johnson@email.com\",\n    \"phone\": \"+1 555 123 4567\",\n    \"address\": \"789 Pine St, Anytown, USA\",\n    \"membershipDate\": \"2024-01-15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/members/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "members", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Member",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/members/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "members", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users"]
+						}
+					}
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newstaff\",\n    \"email\": \"newstaff@lms.com\",\n    \"password\": \"password123\",\n    \"roleId\": 3\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users"]
+						}
+					}
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"updatedstaff\",\n    \"email\": \"updatedstaff@lms.com\",\n    \"password\": \"newpassword123\",\n    \"roleId\": 3\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Borrowing Transactions",
+			"item": [
+				{
+					"name": "Get All Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/transactions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions"]
+						}
+					}
+				},
+				{
+					"name": "Get Transaction by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/transactions/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Borrowing Transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookId\": 1,\n    \"memberId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/transactions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions"]
+						}
+					}
+				},
+				{
+					"name": "Return Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/transactions/1/return",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "1", "return"]
+						}
+					}
+				},
+				{
+					"name": "Get Overdue Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/transactions/overdue",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "overdue"]
+						}
+					}
+				},
+				{
+					"name": "Get Member Borrowing History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/transactions/member/1/history",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "member", "1", "history"]
+						}
+					}
+				},
+				{
+					"name": "Check Book Availability",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/transactions/book/1/availability",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "book", "1", "availability"]
+						}
+					}
+				},
+				{
+					"name": "Update Transaction",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"borrowDate\": \"2024-01-15\",\n    \"dueDate\": \"2024-01-29\",\n    \"returnDate\": null\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/transactions/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Transaction",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/transactions/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "1"]
+						}
+					}
+				}
+			]
+		}
+	]
+}

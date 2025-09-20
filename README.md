@@ -206,26 +206,31 @@ src/
    ```
 
 2. **Database Setup**
-   - Install MySQL
-   - Create a database named `lms_db`
-   - Update database credentials in `application.properties` if needed
+   - Install MySQL and ensure it's running
+   - The application will automatically create the `lms_db` database
+   - Default MySQL credentials are configured for `root` user
 
 3. **Configure Application**
-   - Update `src/main/resources/application.properties` with your database credentials:
+   - The application is pre-configured with the following database settings:
    ```properties
-   spring.datasource.username=your_username
-   spring.datasource.password=your_password
+   spring.datasource.username=root
+   spring.datasource.password=1033419Way@#
    ```
+   - If your MySQL has different credentials, update `src/main/resources/application.properties`
 
 4. **Build and Run**
    ```bash
-   mvn clean install
+   mvn clean compile
    mvn spring-boot:run
    ```
 
 5. **Access the Application**
    - API Base URL: `http://localhost:8080`
    - The application will automatically create tables and populate sample data
+   - If you encounter port conflicts, kill any processes using port 8080:
+   ```bash
+   lsof -ti:8080 | xargs kill -9
+   ```
 
 ### Default Users
 The system comes with pre-configured users:
@@ -360,12 +365,55 @@ Use the provided Postman collection or test endpoints using curl commands as sho
 
 This project is licensed under the MIT License.
 
+## 🔧 Troubleshooting
+
+### Common Issues
+
+#### 1. Database Connection Issues
+- **Error**: `Access denied for user 'root'@'localhost'`
+- **Solution**: Verify MySQL is running and the password is correct
+- **Check**: `mysql -u root -p'1033419Way@#' -e "SHOW DATABASES;"`
+
+#### 2. Port Already in Use
+- **Error**: `Port 8080 was already in use`
+- **Solution**: Kill processes using port 8080:
+  ```bash
+  lsof -ti:8080 | xargs kill -9
+  ```
+
+#### 3. Entity Scanning Issues
+- **Error**: `Not a managed type: class entity.User`
+- **Solution**: Ensure the main application class has proper package scanning:
+  ```java
+  @SpringBootApplication(scanBasePackages = {"com.code81.lms", "controller", "service", "repository", "entity", "dto", "mapper", "config", "util"})
+  @EnableJpaRepositories(basePackages = {"repository"})
+  @EntityScan(basePackages = {"entity"})
+  ```
+
+#### 4. Compilation Errors
+- **Error**: Package declaration issues
+- **Solution**: Clean and recompile:
+  ```bash
+  mvn clean compile
+  ```
+
+#### 5. JWT Token Issues
+- **Error**: Token validation failures
+- **Solution**: Check JWT secret configuration in `application.properties`
+
+### Development Status
+- ✅ **Completed**: Core functionality, security, database schema
+- ✅ **Completed**: API endpoints, business logic, sample data
+- ⚠️ **In Progress**: Final testing and deployment setup
+- 📝 **Note**: Application may require package scanning adjustments based on your environment
+
 ## 🆘 Support
 
 For support and questions:
 - Create an issue in the repository
-- Check the documentation
+- Check the troubleshooting section above
 - Review the API endpoints
+- Verify MySQL connection and credentials
 
 ## 🔄 Version History
 
