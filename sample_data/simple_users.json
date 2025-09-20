@@ -1,0 +1,42 @@
+[
+  {
+    "username": "admin",
+    "password": "admin123",
+    "email": "admin@lms.com",
+    "roleId": 1,
+    "firstName": "System",
+    "lastName": "Administrator"
+  },
+  {
+    "username": "librarian",
+    "password": "librarian123",
+    "email": "librarian@lms.com",
+    "roleId": 2,
+    "firstName": "Sarah",
+    "lastName": "Johnson"
+  },
+  {
+    "username": "staff",
+    "password": "staff123",
+    "email": "staff@lms.com",
+    "roleId": 3,
+    "firstName": "Mike",
+    "lastName": "Wilson"
+  },
+  {
+    "username": "test.user",
+    "password": "password123",
+    "email": "test.user@lms.com",
+    "roleId": 3,
+    "firstName": "Test",
+    "lastName": "User"
+  },
+  {
+    "username": "demo.librarian",
+    "password": "demo123",
+    "email": "demo.librarian@lms.com",
+    "roleId": 2,
+    "firstName": "Demo",
+    "lastName": "Librarian"
+  }
+]

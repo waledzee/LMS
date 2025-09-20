@@ -1,0 +1,188 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@lms.com",
+      "password": "admin123",
+      "role": {
+        "id": 1,
+        "name": "ADMIN",
+        "description": "System Administrator with full access"
+      },
+      "firstName": "System",
+      "lastName": "Administrator",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "lastLoginAt": "2024-09-20T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "username": "librarian",
+      "email": "librarian@lms.com",
+      "password": "librarian123",
+      "role": {
+        "id": 2,
+        "name": "LIBRARIAN",
+        "description": "Librarian with book and member management access"
+      },
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "lastLoginAt": "2024-09-20T09:15:00Z"
+    },
+    {
+      "id": 3,
+      "username": "staff",
+      "email": "staff@lms.com",
+      "password": "staff123",
+      "role": {
+        "id": 3,
+        "name": "STAFF",
+        "description": "Staff member with basic operational access"
+      },
+      "firstName": "Mike",
+      "lastName": "Wilson",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "lastLoginAt": "2024-09-20T08:45:00Z"
+    },
+    {
+      "id": 4,
+      "username": "john.doe",
+      "email": "john.doe@lms.com",
+      "password": "password123",
+      "role": {
+        "id": 3,
+        "name": "STAFF",
+        "description": "Staff member with basic operational access"
+      },
+      "firstName": "John",
+      "lastName": "Doe",
+      "isActive": true,
+      "createdAt": "2024-09-15T14:30:00Z",
+      "lastLoginAt": "2024-09-19T16:20:00Z"
+    },
+    {
+      "id": 5,
+      "username": "jane.smith",
+      "email": "jane.smith@lms.com",
+      "password": "password123",
+      "role": {
+        "id": 2,
+        "name": "LIBRARIAN",
+        "description": "Librarian with book and member management access"
+      },
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "isActive": true,
+      "createdAt": "2024-09-10T11:15:00Z",
+      "lastLoginAt": "2024-09-20T07:30:00Z"
+    }
+  ],
+  "roles": [
+    {
+      "id": 1,
+      "name": "ADMIN",
+      "description": "System Administrator with full access",
+      "permissions": [
+        "USER_MANAGEMENT",
+        "BOOK_MANAGEMENT",
+        "MEMBER_MANAGEMENT",
+        "TRANSACTION_MANAGEMENT",
+        "REPORT_ACCESS",
+        "SYSTEM_CONFIGURATION"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "LIBRARIAN",
+      "description": "Librarian with book and member management access",
+      "permissions": [
+        "BOOK_MANAGEMENT",
+        "MEMBER_MANAGEMENT",
+        "TRANSACTION_MANAGEMENT",
+        "REPORT_ACCESS"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "STAFF",
+      "description": "Staff member with basic operational access",
+      "permissions": [
+        "BOOK_VIEW",
+        "MEMBER_VIEW",
+        "TRANSACTION_MANAGEMENT"
+      ]
+    }
+  ],
+  "loginRequests": [
+    {
+      "username": "admin",
+      "password": "admin123"
+    },
+    {
+      "username": "librarian",
+      "password": "librarian123"
+    },
+    {
+      "username": "staff",
+      "password": "staff123"
+    },
+    {
+      "username": "john.doe",
+      "password": "password123"
+    },
+    {
+      "username": "jane.smith",
+      "password": "password123"
+    }
+  ],
+  "userCreationRequests": [
+    {
+      "username": "new.admin",
+      "email": "new.admin@lms.com",
+      "password": "newPassword123",
+      "roleId": 1,
+      "firstName": "New",
+      "lastName": "Admin"
+    },
+    {
+      "username": "new.librarian",
+      "email": "new.librarian@lms.com",
+      "password": "newPassword123",
+      "roleId": 2,
+      "firstName": "New",
+      "lastName": "Librarian"
+    },
+    {
+      "username": "new.staff",
+      "email": "new.staff@lms.com",
+      "password": "newPassword123",
+      "roleId": 3,
+      "firstName": "New",
+      "lastName": "Staff"
+    }
+  ],
+  "userUpdateRequests": [
+    {
+      "id": 4,
+      "username": "john.doe",
+      "email": "john.doe.updated@lms.com",
+      "firstName": "John",
+      "lastName": "Doe Updated",
+      "roleId": 2,
+      "isActive": true
+    },
+    {
+      "id": 5,
+      "username": "jane.smith",
+      "email": "jane.smith.updated@lms.com",
+      "firstName": "Jane",
+      "lastName": "Smith Updated",
+      "roleId": 2,
+      "isActive": true
+    }
+  ]
+}

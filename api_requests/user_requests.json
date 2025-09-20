@@ -1,0 +1,260 @@
+{
+  "authentication_requests": {
+    "login_requests": [
+      {
+        "name": "Admin Login",
+        "method": "POST",
+        "url": "http://localhost:8080/api/auth/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "username": "admin",
+          "password": "admin123"
+        },
+        "expected_response": {
+          "token": "JWT_TOKEN_HERE",
+          "message": "Login successful"
+        }
+      },
+      {
+        "name": "Librarian Login",
+        "method": "POST",
+        "url": "http://localhost:8080/api/auth/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "username": "librarian",
+          "password": "librarian123"
+        }
+      },
+      {
+        "name": "Staff Login",
+        "method": "POST",
+        "url": "http://localhost:8080/api/auth/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "username": "staff",
+          "password": "staff123"
+        }
+      }
+    ]
+  },
+  "user_management_requests": {
+    "create_user": [
+      {
+        "name": "Create New Admin",
+        "method": "POST",
+        "url": "http://localhost:8080/api/users",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_JWT_TOKEN"
+        },
+        "body": {
+          "username": "new.admin",
+          "email": "new.admin@lms.com",
+          "password": "newPassword123",
+          "roleId": 1,
+          "firstName": "New",
+          "lastName": "Admin"
+        },
+        "required_role": "ADMIN"
+      },
+      {
+        "name": "Create New Librarian",
+        "method": "POST",
+        "url": "http://localhost:8080/api/users",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_JWT_TOKEN"
+        },
+        "body": {
+          "username": "new.librarian",
+          "email": "new.librarian@lms.com",
+          "password": "newPassword123",
+          "roleId": 2,
+          "firstName": "New",
+          "lastName": "Librarian"
+        },
+        "required_role": "ADMIN"
+      },
+      {
+        "name": "Create New Staff",
+        "method": "POST",
+        "url": "http://localhost:8080/api/users",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_JWT_TOKEN"
+        },
+        "body": {
+          "username": "new.staff",
+          "email": "new.staff@lms.com",
+          "password": "newPassword123",
+          "roleId": 3,
+          "firstName": "New",
+          "lastName": "Staff"
+        },
+        "required_role": "ADMIN"
+      }
+    ],
+    "get_users": [
+      {
+        "name": "Get All Users",
+        "method": "GET",
+        "url": "http://localhost:8080/api/users",
+        "headers": {
+          "Authorization": "Bearer YOUR_JWT_TOKEN"
+        },
+        "required_role": "ADMIN"
+      },
+      {
+        "name": "Get User by ID",
+        "method": "GET",
+        "url": "http://localhost:8080/api/users/1",
+        "headers": {
+          "Authorization": "Bearer YOUR_JWT_TOKEN"
+        },
+        "required_role": "ADMIN"
+      }
+    ],
+    "update_user": [
+      {
+        "name": "Update User",
+        "method": "PUT",
+        "url": "http://localhost:8080/api/users/4",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_JWT_TOKEN"
+        },
+        "body": {
+          "username": "john.doe.updated",
+          "email": "john.doe.updated@lms.com",
+          "firstName": "John",
+          "lastName": "Doe Updated",
+          "roleId": 2,
+          "isActive": true
+        },
+        "required_role": "ADMIN"
+      }
+    ],
+    "delete_user": [
+      {
+        "name": "Delete User",
+        "method": "DELETE",
+        "url": "http://localhost:8080/api/users/5",
+        "headers": {
+          "Authorization": "Bearer YOUR_JWT_TOKEN"
+        },
+        "required_role": "ADMIN"
+      }
+    ]
+  },
+  "user_registration_requests": {
+    "register_user": [
+      {
+        "name": "Register New User",
+        "method": "POST",
+        "url": "http://localhost:8080/api/auth/register",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "username": "new.user",
+          "email": "new.user@lms.com",
+          "password": "password123",
+          "roleId": 3,
+          "firstName": "New",
+          "lastName": "User"
+        }
+      }
+    ]
+  },
+  "curl_examples": {
+    "login_admin": "curl -X POST http://localhost:8080/api/auth/login -H \"Content-Type: application/json\" -d '{\"username\":\"admin\",\"password\":\"admin123\"}'",
+    "create_user": "curl -X POST http://localhost:8080/api/users -H \"Content-Type: application/json\" -H \"Authorization: Bearer YOUR_JWT_TOKEN\" -d '{\"username\":\"test.user\",\"email\":\"test@lms.com\",\"password\":\"password123\",\"roleId\":3,\"firstName\":\"Test\",\"lastName\":\"User\"}'",
+    "get_users": "curl -X GET http://localhost:8080/api/users -H \"Authorization: Bearer YOUR_JWT_TOKEN\"",
+    "update_user": "curl -X PUT http://localhost:8080/api/users/1 -H \"Content-Type: application/json\" -H \"Authorization: Bearer YOUR_JWT_TOKEN\" -d '{\"username\":\"updated.user\",\"email\":\"updated@lms.com\",\"firstName\":\"Updated\",\"lastName\":\"User\",\"roleId\":2}'",
+    "delete_user": "curl -X DELETE http://localhost:8080/api/users/1 -H \"Authorization: Bearer YOUR_JWT_TOKEN\""
+  },
+  "test_scenarios": {
+    "scenario_1_admin_workflow": [
+      {
+        "step": 1,
+        "description": "Login as Admin",
+        "request": "POST /api/auth/login with admin credentials"
+      },
+      {
+        "step": 2,
+        "description": "Create a new librarian",
+        "request": "POST /api/users with librarian data"
+      },
+      {
+        "step": 3,
+        "description": "Verify user was created",
+        "request": "GET /api/users to see all users"
+      }
+    ],
+    "scenario_2_user_management": [
+      {
+        "step": 1,
+        "description": "Login as Admin",
+        "request": "POST /api/auth/login"
+      },
+      {
+        "step": 2,
+        "description": "Get all users",
+        "request": "GET /api/users"
+      },
+      {
+        "step": 3,
+        "description": "Update a user",
+        "request": "PUT /api/users/{id}"
+      },
+      {
+        "step": 4,
+        "description": "Delete a user",
+        "request": "DELETE /api/users/{id}"
+      }
+    ]
+  },
+  "validation_examples": {
+    "invalid_requests": [
+      {
+        "name": "Invalid Login - Wrong Password",
+        "method": "POST",
+        "url": "http://localhost:8080/api/auth/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "username": "admin",
+          "password": "wrongpassword"
+        },
+        "expected_error": "Invalid credentials"
+      },
+      {
+        "name": "Invalid User Creation - Missing Required Fields",
+        "method": "POST",
+        "url": "http://localhost:8080/api/users",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_JWT_TOKEN"
+        },
+        "body": {
+          "username": "incomplete.user"
+        },
+        "expected_error": "Validation error - missing required fields"
+      },
+      {
+        "name": "Unauthorized Access - No Token",
+        "method": "GET",
+        "url": "http://localhost:8080/api/users",
+        "headers": {},
+        "expected_error": "Unauthorized access"
+      }
+    ]
+  }
+}
